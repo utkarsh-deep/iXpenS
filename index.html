@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>iXpenS</title>
+    <style>
+        div.navbar{
+            background: #7e6f6f; 
+            padding: 3vh;
+        }
+        div.site-logo{
+            padding-left: 2vh;
+            font-weight: bolder;
+            font-size: x-large;
+        }
+        li.nav-item-about{
+            margin-right: 1vh;
+        }
+        br.br-height{
+            display: block;
+            content: "";
+            margin: 0vh auto 0vh;
+        }
+        div.list-items{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- NavBar -->
+    <div class="navbar">
+    <ul class="nav">
+        <li class="nav-item">
+          <div class="site-logo">iXpenS</div>
+    </ul>
+    <ul class="nav">
+        <li class="nav-item-about">
+        About Us
+        </li>
+    </ul>
+    </div>
+
+
+    <!-- Jumbotron -->
+    <div class="jumbotron" style="margin: 2vh; padding: 2vh 6vh 2vh">
+        <div>
+        <h3 style="font-size: 4vh;">
+        Record Your Regular Expenses
+        <small class="text-muted"> | Also record your Overall Expense</small>
+        </h3>   
+        <hr class="my-4">
+        </div>
+
+
+    <!-- Input Fields -->
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Spent</span>
+        </div>
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Rs.</span>
+        </div>
+        <input type="text" id="getInputAmount" class="form-control" placeholder="Amount" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">@</span>
+        </div>
+        <input type="text" id="getInputDesc" class="form-control" placeholder="Enter Your Expense" aria-label="Your Expense" aria-describedby="basic-addon1">
+        
+        <button type="button" id="addBtn" class="btn btn-dark" style="margin-left: 2vh;">ADD</button>
+        </div>
+    </div>
+
+    <!-- Set Expenses -->
+    
+    <div class="jumbotron" style="margin: 2vh; padding: 2vh 6vh 2vh;">
+        <div class="list-items">
+            <ul id="expenseSetter" class="list-group">
+            <br>    
+                
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const amountEl = document.querySelector("#getInputAmount");
+        const descEl = document.querySelector("#getInputDesc");
+        const expenseSetterEl = document.querySelector("#expenseSetter");
+        const addBtnEl = document.querySelector("#addBtn");
+        var addDelEl={};
+
+        
+        addBtnEl.addEventListener("click", addRecord, false);
+
+        let arr=[];
+
+        function addRecord()
+        {
+            recordObj={};
+            recordObj.Amount = parseInt(amountEl.value);;
+            recordObj.Desc = descEl.value;
+            arr.push(recordObj);
+            
+            let str = arr.map((items) => {return `<div id="entry-${arr.indexOf(items)}" class="input-group mb-3"><li class="list-group-item list-group-item-secondary" style="background: #e0e0e0; width: 51vw; padding: 1vh 3vh;">${items.Desc} for Rs. ${items.Amount}</li><button id="button-${arr.indexOf(items)}" onClick="remove(this.id)" type="button" class="btn btn-danger" style="margin-left: 2vh;">O</button></div>`});
+            console.log(str);
+            
+            const tBAStr = str.join("");
+            
+            console.log(tBAStr);
+            expenseSetterEl.innerHTML = tBAStr;
+        }
+        function remove(delID)
+        {
+            const id = JSON.stringify(delID);
+            const index = id.substring(8,id.length-1);
+            const elID = `entry-${index}`;
+            const el = document.getElementById(elID);
+            el.innerHTML="";
+            let arrnew=[];
+            for(let i=0;i<arr.length;i++)
+            {
+                if(i==index)
+                continue;
+                else
+                arrnew.push(arr[i]);
+            }
+            arr=arrnew;
+        }
+    </script>
+
+</body>
+</html>
