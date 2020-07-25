@@ -49,8 +49,8 @@
     <div class="jumbotron" style="margin: 2vh; padding: 2vh 6vh 2vh">
         <div>
         <h3 style="font-size: 4vh;">
-        Record Your Regular Expenses
-        <small class="text-muted"> | Also record your Overall Expense</small>
+        Record Your Regular Expenses<br>
+        <small class="text-muted">Also record your Overall Expense</small>
         </h3>   
         <hr class="my-4">
         </div>
@@ -77,11 +77,10 @@
     </div>
 
     <!-- Set Expenses -->
-    <div class="jumbotron" style="margin: 2vh; padding: 2vh 6vh 2vh;">
+    <div class="jumbotron" style="margin: 2vh;  padding: 2vh 6vh 2vh;">
         <div class="list-items">
             <ul id="expenseSetter" class="list-group">
-            <br>    
-                
+            
             </ul>
         </div>
     </div>
@@ -130,22 +129,27 @@
         function getExpense()
         {
             modalBodyContEl.innerHTML=`You have spent Rs. ${sum}`;
-
-
         }
+        
         function addRecord()
         {
             recordObj={};
             recordObj.Amount = parseInt(amountEl.value);
             recordObj.Desc = descEl.value;
             arr.push(recordObj);
+            amountEl.value="";
+            descEl.value="";
             sum+=recordObj.Amount;
             
-            let str = arr.map((items) => {return `<div id="entry-${arr.indexOf(items)}" class="input-group mb-3"><li class="list-group-item list-group-item-secondary" style="background: #e0e0e0; width: 51vw; padding: 1vh 3vh;">${items.Desc} for Rs. ${items.Amount}</li><button id="button-${arr.indexOf(items)}" onClick="remove(this.id)" type="button" class="btn btn-danger" style="margin-left: 2vh;">O</button></div>`});
+            let str = arr.map((items) => {return `<div id="entry-${arr.indexOf(items)}" class="input-group mb-3">
+                <li class="list-group-item list-group-item-secondary" style="background: #e0e0e0; width: 51vw; padding: 1vh 3vh;">${items.Desc} for Rs. ${items.Amount}</li>
+                <button id="button-${arr.indexOf(items)}" onClick="remove(this.id)" type="button" class="btn btn-danger" style="margin-left: 2vh;">O
+                </button></div>`});
             
             const tBAStr = str.join("");
             
             expenseSetterEl.innerHTML = tBAStr;
+
         }
         function remove(delID)
         {
@@ -159,7 +163,7 @@
             {
                 if(i==index)
                 {
-                    sum-=arr[i];
+                    sum-=arr[i].Amount;
                 }else
                 arrnew.push(arr[i]);
             }
