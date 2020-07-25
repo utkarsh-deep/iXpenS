@@ -129,7 +129,7 @@
         let sum=0;
         function getExpense()
         {
-            modalBodyContEl.innerHTML=`You have spend Rs. ${sum}`;
+            modalBodyContEl.innerHTML=`You have spent Rs. ${sum}`;
 
 
         }
@@ -142,11 +142,9 @@
             sum+=recordObj.Amount;
             
             let str = arr.map((items) => {return `<div id="entry-${arr.indexOf(items)}" class="input-group mb-3"><li class="list-group-item list-group-item-secondary" style="background: #e0e0e0; width: 51vw; padding: 1vh 3vh;">${items.Desc} for Rs. ${items.Amount}</li><button id="button-${arr.indexOf(items)}" onClick="remove(this.id)" type="button" class="btn btn-danger" style="margin-left: 2vh;">O</button></div>`});
-            console.log(str);
             
             const tBAStr = str.join("");
             
-            console.log(tBAStr);
             expenseSetterEl.innerHTML = tBAStr;
         }
         function remove(delID)
